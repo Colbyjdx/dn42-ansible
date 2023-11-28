@@ -1,0 +1,5 @@
+[Match]
+Name=dn42_{{ item.name }}
+
+[Network]
+Address={{ item.override_link_local if item.get('override_link_local') else link_local6 }}/64

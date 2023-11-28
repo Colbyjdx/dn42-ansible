@@ -1,0 +1,8 @@
+- name: Reconfigure packages & software
+  hosts: dn42
+  become: true
+
+  roles:
+    - 'configure_iptables'
+    - 'configure_bird'
+    - 'configure_dn42_peers'

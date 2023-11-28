@@ -1,0 +1,6 @@
+- name: Restart dn42-roa
+  systemd:
+    name: dn42-roa.service
+    daemon_reload: true
+    state: started
+    enabled: true

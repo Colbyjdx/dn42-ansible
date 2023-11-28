@@ -1,0 +1,11 @@
+area 0 {
+{% for peer in igp_links %}
+    interface "igp_{{ peer.replace('-', '_') }}" {
+        cost 123;
+    };
+{% endfor %}
+
+    interface "igp_dummy*" {
+        stub;
+    };
+};

@@ -1,0 +1,15 @@
+- name: Restart pingfinder
+  systemd:
+    name: pingfinder.service
+    daemon_reload: true
+    state: started
+    enabled: true
+  notify:
+    - Enable pingfinder timer
+
+- name: Enable pingfinder timer
+  systemd:
+    name: pingfinder.timer
+    daemon_reload: true
+    state: started
+    enabled: true

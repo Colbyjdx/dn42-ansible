@@ -1,0 +1,13 @@
+- name: Update apt cache
+  apt:
+    update_cache: true
+
+- name: Install WireGuard
+  package:
+    name: wireguard
+    state: present
+
+- name: Generate WireGuard keys if they don't exist
+  shell: set -o pipefail && wg genkey | tee /etc/wireguard/privatekey | wg pubkey > /etc/wireguard/publickey
+  args:
+    creates: /etc/wireguard/privatekey

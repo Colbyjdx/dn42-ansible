@@ -1,0 +1,37 @@
+- name: Create pingfinder folder
+  file:
+    path: /opt/pingfinder
+    state: directory
+    owner: root
+    group: root
+    mode: "0755"
+
+- name: Copy pingfinder script
+  template:
+    src: templates/pingfinder.sh.j2
+    dest: /opt/pingfinder/pingfinder.sh
+    owner: root
+    group: root
+    mode: "0755"
+  notify:
+    - Restart pingfinder
+
+- name: Copy pingfinder service
+  template:
+    src: templates/pingfinder.service.j2
+    dest: /etc/systemd/system/pingfinder.service
+    owner: root
+    group: root
+    mode: "0644"
+  notify:
+    - Restart pingfinder
+
+- name: Copy pingfinder timer
+  template:
+    src: templates/pingfinder.timer.j2
+    dest: /etc/systemd/system/pingfinder.timer
+    owner: root
+    group: root
+    mode: "0644"
+  notify:
+    - Restart pingfinder

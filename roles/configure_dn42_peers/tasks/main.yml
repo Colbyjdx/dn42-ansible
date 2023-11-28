@@ -1,0 +1,27 @@
+- name: Read peer settings
+  include_vars:
+    file: "{{ inventory_hostname }}.yml"
+
+- name: Create systemd netdev files
+  template:
+    src: templates/wg_dn42.netdev.j2
+    dest: /etc/systemd/network/dn42_{{ item.name }}.netdev
+    mode: "0644"
+  loop: "{{ configure_dn42_peers_peerlist | list }}"
+  notify: Restart systemd-networkd
+
+- name: Create systemd network files
+  template:
+    src: templates/wg_dn42.network.j2
+    dest: /etc/systemd/network/dn42_{{ item.name }}.network
+    mode: "0644"
+  loop: "{{ configure_dn42_peers_peerlist | list }}"
+  notify: Restart systemd-networkd
+
+- name: Create bird peer config
+  template:
+    src: templates/bird_peer.conf.j2
+    dest: /etc/bird/peers/{{ item.name }}.conf
+    mode: "0644"
+  loop: "{{ configure_dn42_peers_peerlist | list }}"
+  notify: Configure bird

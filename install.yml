@@ -1,0 +1,12 @@
+- name: Install packages & software
+  hosts: dn42
+  become: true
+
+  roles:
+    - 'install_dn42_node'
+    - 'install_wireguard'
+    - 'install_bird'
+    - 'install_bird_lgproxy_go'
+    - 'install_dn42_roa'
+    - 'install_pingfinder'
+    - 'install_iptables'

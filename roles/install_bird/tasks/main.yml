@@ -1,0 +1,30 @@
+- name: Update APT package cache
+  apt:
+    update_cache: true
+
+- name: Install Bird package
+  package:
+    name: bird2
+    state: present
+
+- name: Create Bird peers folder
+  file:
+    path: /etc/bird/peers
+    state: directory
+    mode: "0755"
+    owner: bird
+    group: bird
+
+- name: Create Bird ibgp folder
+  file:
+    path: /etc/bird/ibgp
+    state: directory
+    mode: "0755"
+    owner: bird
+    group: bird
+
+- name: Ensure Bird service is enabled and started
+  service:
+    name: bird
+    state: started
+    enabled: true

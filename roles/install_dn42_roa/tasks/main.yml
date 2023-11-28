@@ -1,0 +1,13 @@
+- name: Create the service unit file
+  template:
+    src: dn42-roa.service.j2
+    dest: /etc/systemd/system/dn42-roa.service
+    mode: "0644"
+  notify: Restart dn42-roa
+
+- name: Create the timer unit file
+  template:
+    src: dn42-roa.timer.j2
+    dest: /etc/systemd/system/dn42-roa.timer
+    mode: "0644"
+  notify: Restart dn42-roa

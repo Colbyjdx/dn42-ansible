@@ -1,0 +1,17 @@
+- name: Configure iptables
+  template:
+    src: "{{ item }}"
+    dest: "/etc/iptables/{{ item.replace('.j2', '') | basename }}"
+    mode: "0644"
+    owner: root
+    group: root
+  with_fileglob:
+    - "templates/*.j2"
+  notify:
+    - Reload iptables
+
+- name: Start netfilter-persistent
+  service:
+    name: netfilter-persistent
+    state: started
+    enabled: true

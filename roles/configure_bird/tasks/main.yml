@@ -1,0 +1,37 @@
+- name: Copy Bird configuration templates
+  template:
+    src: "{{ item }}"
+    dest: "/etc/bird/{{ item.replace('.j2', '') | basename }}"
+    mode: "0644"
+    owner: bird
+    group: bird
+  with_fileglob:
+    - "templates/*.j2"
+  notify:
+    - Reconfigure Bird
+
+- name: Create IGP systemd netdev files
+  template:
+    src: templates/wg_igp/wg_igp.netdev.j2
+    dest: /etc/systemd/network/igp_{{ item.replace('-', '_') }}.netdev
+    mode: "0644"
+  loop: "{{ igp_links }}"
+  notify: Restart systemd-networkd
+
+- name: Create IGP systemd network files
+  template:
+    src: templates/wg_igp/wg_igp.network.j2
+    dest: /etc/systemd/network/igp_{{ item.replace('-', '_') }}.network
+    mode: "0644"
+  loop: "{{ igp_links }}"
+  notify: Restart systemd-networkd
+
+- name: Create Bird ibgp peers
+  template:
+    src: templates/ibgp/ibgp.conf.j2
+    dest: /etc/bird/ibgp/ibgp_{{ item.replace('-', '_') }}.conf
+    mode: "0644"
+    owner: bird
+    group: bird
+  loop: "{{ ansible_play_hosts | difference([inventory_hostname]) }}"
+  notify: Reconfigure Bird

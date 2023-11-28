@@ -1,0 +1,4 @@
+- name: Reload iptables
+  service:
+    name: netfilter-persistent
+    state: restarted

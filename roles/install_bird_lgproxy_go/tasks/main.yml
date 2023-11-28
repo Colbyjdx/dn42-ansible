@@ -1,0 +1,43 @@
+- name: Fetch GitHub releases
+  uri:
+    url: https://api.github.com/repos/xddxdd/bird-lg-go/releases/latest
+    method: GET
+  register: releases
+
+- name: Find matching bird-lgproxy-go-.+-linux-amd64.tar.gz
+  set_fact:
+    release: "{{ releases.json.assets | selectattr('name', 'match', 'bird-lgproxy-go-.+-linux-amd64.tar.gz') | list | first }}"
+
+- name: Download bird-lgproxy-go
+  get_url:
+    url: "{{ release.browser_download_url }}"
+    dest: /tmp/bird-lgproxy-go.tar.gz
+    mode: "0644"
+
+- name: Extract bird-lgproxy-go
+  unarchive:
+    src: /tmp/bird-lgproxy-go.tar.gz
+    dest: /usr/local/bin
+    remote_src: true
+    creates: /usr/local/bin/bird-lgproxy-go
+
+- name: Install bird-lgproxy.service
+  template:
+    src: bird-lgproxy.service.j2
+    dest: /etc/systemd/system/bird-lgproxy.service
+    mode: "0644"
+  notify:
+    - Reload systemd
+
+- name: Start bird-lgproxy
+  service:
+    name: bird-lgproxy
+    state: started
+    enabled: true
+  notify:
+    - Reload systemd
+
+- name: Cleanup tarball
+  file:
+    path: /tmp/bird-lgproxy-go.tar.gz
+    state: absent

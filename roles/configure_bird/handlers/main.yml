@@ -1,0 +1,8 @@
+- name: Reconfigure Bird
+  command: birdc configure
+  changed_when: true
+
+- name: Restart systemd-networkd
+  systemd:
+    name: systemd-networkd
+    state: restarted

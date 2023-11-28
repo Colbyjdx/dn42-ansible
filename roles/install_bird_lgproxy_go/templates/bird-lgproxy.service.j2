@@ -1,0 +1,10 @@
+[Unit]
+Description=bird-lg proxy
+
+[Service]
+User=bird
+Group=bird
+ExecStart=/usr/local/bin/bird-lgproxy-go
+
+[Install]
+WantedBy=multi-user.target
