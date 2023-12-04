@@ -1,6 +1,12 @@
 - name: Read peer settings
   include_vars:
     file: "{{ inventory_hostname }}.yml"
+  failed_when: false
+
+- name: Set default peer settings if not defined
+  set_fact:
+    configure_dn42_peers_peerlist: []
+  when: configure_dn42_peers_peerlist is not defined or not configure_dn42_peers_peerlist
 
 - name: Create systemd netdev files
   template:
