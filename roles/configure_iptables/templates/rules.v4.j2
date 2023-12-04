@@ -3,3 +3,15 @@
 :FORWARD ACCEPT
 :OUTPUT ACCEPT
 COMMIT
+
+{% if inventory_hostname in groups["dn42_nat_gw"] %}
+*nat
+:PREROUTING ACCEPT [0:0]
+:INPUT ACCEPT [0:0]
+:OUTPUT ACCEPT [0:0]
+:POSTROUTING ACCEPT [0:0]
+-A POSTROUTING -s {{ nat_subnet }} -o dn42_+ -j MASQUERADE
+-A POSTROUTING -s {{ nat_subnet }} -o igp_+ -j SNAT --to-source {{ ownip }}
+-A POSTROUTING -s {{ ownasnet }} -o {{ nat_iface }} -j MASQUERADE
+COMMIT
+{% endif %}
