@@ -43,19 +43,19 @@
     line: "extra/dn42.crt"
     state: present
 
-- name: Update nameserver
-  lineinfile:
-    path: /etc/resolv.conf
-    regexp: "^nameserver"
-    line: "nameserver 172.20.0.53"
-    state: present
+- name: Disable systemd-resolved
+  systemd:
+    name: systemd-resolved
+    state: stopped
+    enabled: false
 
-- name: Set search domain
-  lineinfile:
-    path: /etc/resolv.conf
-    regexp: "^search"
-    line: "search derix.dn42"
-    state: present
+- name: Copy /etc/resolv.conf
+  template:
+    src: resolv.conf.j2
+    dest: /etc/resolv.conf
+    owner: root
+    group: root
+    mode: "0644"
 
 - name: Create dummy0.netdev file
   template:

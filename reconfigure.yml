@@ -3,6 +3,7 @@
   become: true
 
   roles:
+    - 'configure_dn42_node'
     - 'configure_iptables'
     - 'configure_bird'
     - 'configure_dn42_peers'
