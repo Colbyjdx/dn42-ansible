@@ -7,6 +7,15 @@
     mode: "0644"
   notify: Reload sysctl
 
+- name: Copy sysctl.d/90-override.conf
+  template:
+    src: sysctl-override.conf.j2
+    dest: /etc/sysctl.d/90-override.conf
+    owner: root
+    group: root
+    mode: "0644"
+  notify: Reload sysctl
+
 - name: Set FQDN
   hostname:
     name: "{{ ansible_host }}"

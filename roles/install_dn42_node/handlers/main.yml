@@ -1,6 +1,8 @@
 - name: Reload sysctl
-  command: sysctl -p
-  changed_when: true
+  systemd:
+    name: systemd-sysctl
+    state: restarted
+    enabled: true
 
 - name: Update CA certificates
   command: update-ca-certificates
