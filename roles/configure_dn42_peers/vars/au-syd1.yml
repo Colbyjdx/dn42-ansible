@@ -1,2 +1,18 @@
 configure_dn42_peers_peerlist:
-  -
+  - name: KIOUBIT
+    as: "4242423914"
+    remote_endpoint: hk1.g-load.eu:22558
+    remote_pubkey: sLbzTRr2gfLFb24NPzDOpy8j09Y6zI+a7NkeVMdVSR8=
+    remote_link_local: fe80::ade0
+    extended_next_hop: "on"
+    community_latency: 5
+    community_bandwidth: 23
+
+  - name: KSKB
+    as: "4242421817"
+    remote_endpoint: 4.sg.kskb.eu.org:22558
+    remote_pubkey: F6h8b3MOOf2A7qaUipDW5LFRZESjcJ4GL1w3kNF6pgQ=
+    remote_link_local: fe80::1817
+    extended_next_hop: "on"
+    community_latency: 5
+    community_bandwidth: 23
