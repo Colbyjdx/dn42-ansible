@@ -1,0 +1,19 @@
+; BIND db file for derix.dn42
+
+$TTL 60
+
+@       IN      SOA     ns1.derix.dn42.      dn42.derix.dev. (
+                        2023103102      ; serial number YYMMDDNN
+                        60              ; Refresh
+                        60              ; Retry
+                        60              ; Expire
+                        60              ; Min TTL
+                        )
+
+                NS      ns1.derix.dn42.
+                NS      ns2.derix.dn42.
+
+17              PTR       au-bne1.derix.dn42.
+18              PTR       au-bne2.derix.dn42.
+20              PTR       au-syd1.derix.dn42.
+21              PTR       us-pdx1.derix.dn42.

@@ -1,5 +1,8 @@
 *filter
 :INPUT ACCEPT
+-A INPUT -p udp -s fd00::/8 --dport 53 -j ACCEPT
+-A INPUT -p udp -s ::1 --dport 53 -j ACCEPT
+-A INPUT -p udp --dport 53 -j REJECT --reject-with icmp6-port-unreachable
 :FORWARD ACCEPT
 :OUTPUT ACCEPT
 COMMIT

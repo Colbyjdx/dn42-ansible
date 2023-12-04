@@ -1,0 +1,23 @@
+- name: Copy bind9 configuration templates
+  template:
+    src: "{{ item }}"
+    dest: "/etc/bind/{{ item.replace('.j2', '') | basename }}"
+    mode: "0644"
+    owner: bind
+    group: bind
+  with_fileglob:
+    - "templates/*.j2"
+  notify:
+    - Restart bind9
+
+- name: Copy bind9 zones
+  template:
+    src: "{{ item }}"
+    dest: "/etc/bind/zones/{{ item.replace('.j2', '') | basename }}"
+    mode: "0644"
+    owner: bind
+    group: bind
+  with_fileglob:
+    - "templates/zones/*.j2"
+  notify:
+    - Restart bind9

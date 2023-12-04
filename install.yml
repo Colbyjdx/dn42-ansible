@@ -1,4 +1,4 @@
-- name: Install packages & software
+- name: Install packages & software for all nodes
   hosts: dn42
   become: true
 
@@ -9,3 +9,10 @@
     - 'install_dn42_roa'
     - 'install_pingfinder'
     - 'install_iptables'
+
+- name: Install packages & software for DNS server nodes
+  hosts: dn42_dns_server
+  become: true
+
+  roles:
+    - 'install_dns_server'

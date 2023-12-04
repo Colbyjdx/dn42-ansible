@@ -1,0 +1,34 @@
+acl "trusted" {
+    {{ ownasnet }};
+    {{ ownasnet6 }};
+{% if inventory_hostname in groups["dn42_nat_gw"] %}
+    {{ nat_subnet }};
+{% endif %}
+    localhost;
+    localnets;
+};
+
+
+options {
+    directory "/var/cache/bind";
+
+    validate-except {
+        "dn42";
+        "20.172.in-addr.arpa";
+        "21.172.in-addr.arpa";
+        "22.172.in-addr.arpa";
+        "23.172.in-addr.arpa";
+        "10.in-addr.arpa";
+        "d.f.ip6.arpa";
+    };
+    empty-zones-enable no;
+
+    //========================================================================
+    // If BIND logs error messages about the root key being expired,
+    // you will need to update your keys.  See https://www.isc.org/bind-keys
+    //========================================================================
+    dnssec-validation auto;
+
+    listen-on-v6 { any; };
+    allow-recursion { "trusted"; };
+};

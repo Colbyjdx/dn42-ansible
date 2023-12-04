@@ -1,5 +1,11 @@
 *filter
 :INPUT ACCEPT
+-A INPUT -p udp -s 172.20.0.0/14 --dport 53 -j ACCEPT
+-A INPUT -p udp -s 127.0.0.1 --dport 53 -j ACCEPT
+{% if inventory_hostname in groups["dn42_nat_gw"] %}
+-A INPUT -p udp -s {{ nat_subnet }} --dport 53 -j ACCEPT
+{% endif %}
+-A INPUT -p udp --dport 53 -j REJECT --reject-with icmp-port-unreachable
 :FORWARD ACCEPT
 :OUTPUT ACCEPT
 COMMIT

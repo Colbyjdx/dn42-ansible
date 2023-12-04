@@ -1,4 +1,4 @@
-- name: Reconfigure packages & software
+- name: Reconfigure packages & software for all nodes
   hosts: dn42
   become: true
 
@@ -7,3 +7,10 @@
     - 'configure_iptables'
     - 'configure_bird'
     - 'configure_dn42_peers'
+
+- name: Reconfigure packages & software for DNS server nodes
+  hosts: dn42_dns_server
+  become: true
+
+  roles:
+    - 'configure_dns_server'
