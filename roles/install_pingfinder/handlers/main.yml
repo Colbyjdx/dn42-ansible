@@ -4,8 +4,6 @@
     daemon_reload: true
     state: started
     enabled: true
-  notify:
-    - Enable pingfinder timer
 
 - name: Enable pingfinder timer
   systemd:
