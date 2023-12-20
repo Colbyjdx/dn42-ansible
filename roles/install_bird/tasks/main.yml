@@ -1,9 +1,14 @@
-- name: Update APT package cache
+- name: Add repository ppa:cz.nic-labs/bird
+  apt_repository:
+    repo: ppa:cz.nic-labs/bird
+    state: present
+
+- name: Update apt
   apt:
     update_cache: true
 
-- name: Install Bird package
-  package:
+- name: Install Bird
+  apt:
     name: bird2
     state: present
 
