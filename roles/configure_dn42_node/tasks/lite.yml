@@ -1,0 +1,16 @@
+# Extra tasks we perform for "Lite" OpenVZ/LXC servers
+# Minimal resources are allocated to these servers, so we disable services that are not needed.
+
+- name: Disable apache2
+  systemd:
+    name: apache2
+    state: stopped
+    enabled: false
+  failed_when: false
+
+- name: Disable exim4
+  systemd:
+    name: exim4
+    state: stopped
+    enabled: false
+  failed_when: false

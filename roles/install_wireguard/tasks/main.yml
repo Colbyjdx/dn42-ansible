@@ -2,10 +2,23 @@
   apt:
     update_cache: true
 
-- name: Install WireGuard
+- name: Install Wireguard tools
+  package:
+    name: wireguard-tools
+    state: present
+
+- name: Install WireGuard (Kernel)
   package:
     name: wireguard
     state: present
+  when: inventory_hostname not in groups["dn42_lite"]
+
+- name: Install WireGuard (Userspace)
+  get_url:
+    url: "https://github.com/bestmike007/boringtun/releases/download/v0.6.0/boringtun-cli-amd64"
+    dest: /opt/boringtun
+    mode: "0755"
+  when: inventory_hostname in groups["dn42_lite"]
 
 - name: Generate WireGuard keys if they don't exist
   shell: set -o pipefail && wg genkey | tee /etc/wireguard/privatekey | wg pubkey > /etc/wireguard/publickey

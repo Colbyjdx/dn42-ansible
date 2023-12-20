@@ -1,0 +1,8 @@
+[Interface]
+PrivateKey={{ wg_private }}
+ListenPort={{ hostvars[item]['node_id'] }}
+
+[Peer]
+Endpoint={{ hostvars[item]['ansible_host'] }}:{{ node_id }}
+PublicKey={{ hostvars[item]['wg_public'] }}
+AllowedIPs=172.20.0.0/14,169.254.0.0/16,fd00::/8,fe80::/64,ff00::/8

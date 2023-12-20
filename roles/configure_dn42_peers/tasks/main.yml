@@ -8,21 +8,46 @@
     configure_dn42_peers_peerlist: []
   when: configure_dn42_peers_peerlist is not defined or not configure_dn42_peers_peerlist
 
-- name: Create systemd netdev files
+- name: Create systemd netdev files (Kernel WireGuard)
   template:
     src: templates/wg_dn42.netdev.j2
     dest: /etc/systemd/network/dn42_{{ item.name }}.netdev
     mode: "0644"
   loop: "{{ configure_dn42_peers_peerlist | list }}"
   notify: Restart systemd-networkd
+  when: inventory_hostname not in groups['dn42_lite']
 
-- name: Create systemd network files
+- name: Create systemd network files (Kernel WireGuard)
   template:
     src: templates/wg_dn42.network.j2
     dest: /etc/systemd/network/dn42_{{ item.name }}.network
     mode: "0644"
   loop: "{{ configure_dn42_peers_peerlist | list }}"
   notify: Restart systemd-networkd
+  when: inventory_hostname not in groups['dn42_lite']
+
+- name: Create DN42 Wireguard config (Userspace WireGuard)
+  template:
+    src: templates/wg_dn42.conf.j2
+    dest: /etc/wireguard/dn42_{{ item.name }}.conf
+    mode: "0644"
+  loop: "{{ configure_dn42_peers_peerlist | list }}"
+  when: inventory_hostname in groups['dn42_lite']
+
+- name: Create DN42 systemd service (Userspace WireGuard)
+  template:
+    src: templates/wg_dn42.service.j2
+    dest: /etc/systemd/system/dn42@.service
+    mode: "0644"
+  when: inventory_hostname in groups['dn42_lite']
+
+- name: Start DN42 systemd service (Userspace WireGuard)
+  systemd:
+    name: dn42@dn42_{{ item.name }}.service
+    state: started
+    enabled: true
+  loop: "{{ configure_dn42_peers_peerlist | list }}"
+  when: inventory_hostname in groups['dn42_lite']
 
 - name: Create bird peer config
   template:

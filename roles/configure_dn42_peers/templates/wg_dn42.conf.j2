@@ -1,0 +1,8 @@
+[Interface]
+PrivateKey={{ wg_private }}
+ListenPort={{ item.as[5:] }}
+
+[Peer]
+Endpoint={{ item.remote_endpoint }}
+PublicKey={{ item.remote_pubkey }}
+AllowedIPs=172.20.0.0/14,fd00::/8,fe80::/64,ff00::/8

@@ -70,3 +70,7 @@
     dest: /etc/systemd/network/dummy0.network
     mode: "0644"
   notify: Restart systemd-networkd
+
+- name: Run extra setup for lite nodes
+  include_tasks: lite.yml
+  when: inventory_hostname in groups["dn42_lite"]

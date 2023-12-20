@@ -10,21 +10,46 @@
   notify:
     - Reconfigure Bird
 
-- name: Create IGP systemd netdev files
+- name: Create IGP systemd netdev files (Kernel WireGuard)
   template:
     src: templates/wg_igp/wg_igp.netdev.j2
     dest: /etc/systemd/network/igp_{{ item.replace('-', '_') }}.netdev
     mode: "0644"
   loop: "{{ igp_links }}"
   notify: Restart systemd-networkd
+  when: inventory_hostname not in groups['dn42_lite']
 
-- name: Create IGP systemd network files
+- name: Create IGP systemd network files (Kernel WireGuard)
   template:
     src: templates/wg_igp/wg_igp.network.j2
     dest: /etc/systemd/network/igp_{{ item.replace('-', '_') }}.network
     mode: "0644"
   loop: "{{ igp_links }}"
   notify: Restart systemd-networkd
+  when: inventory_hostname not in groups['dn42_lite']
+
+- name: Create IGP Wireguard config (Userspace WireGuard)
+  template:
+    src: templates/wg_igp/wg_igp.conf.j2
+    dest: /etc/wireguard/igp_{{ item.replace('-', '_') }}.conf
+    mode: "0644"
+  loop: "{{ igp_links }}"
+  when: inventory_hostname in groups['dn42_lite']
+
+- name: Create IGP systemd service (Userspace WireGuard)
+  template:
+    src: templates/wg_igp/wg_igp.service.j2
+    dest: /etc/systemd/system/igp@.service
+    mode: "0644"
+  when: inventory_hostname in groups['dn42_lite']
+
+- name: Start IGP systemd service (Userspace WireGuard)
+  systemd:
+    name: igp@igp_{{ item.replace('-', '_') }}.service
+    state: started
+    enabled: true
+  loop: "{{ igp_links }}"
+  when: inventory_hostname in groups['dn42_lite']
 
 - name: Create Bird ibgp peers
   template:

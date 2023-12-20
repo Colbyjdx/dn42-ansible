@@ -1,0 +1,12 @@
+[Unit]
+Description=%i
+After=network.target
+
+[Service]
+Type=simple
+ExecStart=/opt/boringtun --disable-drop-privileges %i -f
+ExecStartPost=/bin/bash -c "/usr/bin/wg setconf %i /etc/wireguard/%i.conf ; ip addr add {{ link_local6 }}/64 dev %i ; ip link set mtu 1420 dev %i ; ip link set %i up"
+Restart=always
+
+[Install]
+WantedBy=multi-user.target
