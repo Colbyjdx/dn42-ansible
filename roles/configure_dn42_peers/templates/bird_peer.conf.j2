@@ -1,10 +1,12 @@
 protocol bgp {{ item.name }} from dnpeers {
         neighbor {{ item.remote_link_local }}%dn42_{{ item.name }} as {{ item.as }};
+{% if dn42_v6_only is not defined %}
         ipv4 {
                 import where dn42_import_filter({{ item.community_latency }},{{ item.community_bandwidth }},34);
                 export where dn42_export_filter({{ item.community_latency }},{{ item.community_bandwidth }},34);
                 extended next hop {{ item.extended_next_hop }};
         };
+{% endif %}
         ipv6 {
                 import where dn42_import_filter({{ item.community_latency }},{{ item.community_bandwidth }},34);
                 export where dn42_export_filter({{ item.community_latency }},{{ item.community_bandwidth }},34);

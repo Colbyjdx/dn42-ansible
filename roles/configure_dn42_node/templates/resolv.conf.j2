@@ -1,7 +1,7 @@
 search dn42.derix.au
 
-{% for dns_server in groups["dn42_dns_server"] %}
-nameserver {{ hostvars[dns_server]["ownip"] }}
+{% for dns_server in groups["dn42_dns_server"] | shuffle(seed=inventory_hostname) %}
+nameserver {{ hostvars[dns_server]["ownip6"] }}
 {% endfor %}
 
 nameserver 8.8.8.8

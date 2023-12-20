@@ -2,5 +2,7 @@
 Name=igp_dummy0
 
 [Network]
+{% if dn42_v6_only is not defined %}
 Address={{ ownip }}/32
+{% endif %}
 Address={{ ownip6 }}/128

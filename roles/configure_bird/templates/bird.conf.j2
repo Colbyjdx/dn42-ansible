@@ -3,12 +3,17 @@
 ################################################
 
 define OWNAS =  {{ownas}};
+
+{% if dn42_v6_only is not defined %}
 define OWNIP =  {{ownip}};
-define OWNIPv6 = {{ownip6}};
+{% endif %}
 define OWNNET = {{ownasnet}};
-define OWNNETv6 = {{ownasnet6}};
 define OWNNETSET = {{ownasnetset}};
+
+define OWNIPv6 = {{ownip6}};
+define OWNNETv6 = {{ownasnet6}};
 define OWNNETSETv6 = {{ownasnetset6}};
+
 define DN42_REGION = {{dn42_region}};
 define DN42_COUNTRY = {{dn42_country}};
 
@@ -16,7 +21,7 @@ define DN42_COUNTRY = {{dn42_country}};
 #                 Header end                   #
 ################################################
 
-router id OWNIP;
+router id {{node_id}};
 
 protocol device {
     scan time 10;
@@ -30,56 +35,24 @@ function is_self_net() {
   return net ~ OWNNETSET;
 }
 
-function is_self_net_v6() {
-  return net ~ OWNNETSETv6;
-}
-
 function is_valid_network() {
   return net ~ [
     172.20.0.0/14{21,29}, # dn42
     172.20.0.0/24{28,32}, # dn42 Anycast
     172.21.0.0/24{28,32}, # dn42 Anycast
     172.22.0.0/24{28,32}, # dn42 Anycast
-    172.23.0.0/24{28,32}, # dn42 Anycast
-    172.31.0.0/16+,       # ChaosVPN
-    10.100.0.0/14+,       # ChaosVPN
-    10.127.0.0/16{16,32}, # neonetwork
-    10.0.0.0/8{15,24}     # Freifunk.net
+    172.23.0.0/24{28,32} # dn42 Anycast
   ];
 }
 
 roa4 table dn42_roa;
-roa6 table dn42_roa_v6;
 
 protocol static {
     roa4 { table dn42_roa; };
     include "/etc/bird/roa_dn42.conf";
 };
 
-protocol static {
-    roa6 { table dn42_roa_v6; };
-    include "/etc/bird/roa_dn42_v6.conf";
-};
-
-function is_valid_network_v6() {
-  return net ~ [
-    fd00::/8{44,64} # ULA address space as per RFC 4193
-  ];
-}
-
-protocol kernel {
-    scan time 20;
-
-    ipv6 {
-        import none;
-        export filter {
-            if source = RTS_STATIC then reject;
-            krt_prefsrc = OWNIPv6;
-            accept;
-        };
-    };
-};
-
+{% if dn42_v6_only is not defined %}
 protocol kernel {
     scan time 20;
 
@@ -101,6 +74,37 @@ protocol static {
         export none;
     };
 }
+{% endif %}
+
+function is_self_net_v6() {
+  return net ~ OWNNETSETv6;
+}
+
+function is_valid_network_v6() {
+  return net ~ [
+    fd00::/8{44,64} # ULA address space as per RFC 4193
+  ];
+}
+
+roa6 table dn42_roa_v6;
+
+protocol static {
+    roa6 { table dn42_roa_v6; };
+    include "/etc/bird/roa_dn42_v6.conf";
+};
+
+protocol kernel {
+    scan time 20;
+
+    ipv6 {
+        import none;
+        export filter {
+            if source = RTS_STATIC then reject;
+            krt_prefsrc = OWNIPv6;
+            accept;
+        };
+    };
+};
 
 protocol static {
     route OWNNETv6 reject;
@@ -119,6 +123,7 @@ template bgp dnpeers {
     med metric 1;
     enable extended messages 1;
 
+{% if dn42_v6_only is not defined %}
     ipv4 {
         import filter {
           if is_valid_network() && !is_self_net() then {
@@ -132,6 +137,7 @@ template bgp dnpeers {
         export filter { if is_valid_network() && source ~ [RTS_STATIC, RTS_BGP] then accept; else reject; };
         import limit 1000 action block;
     };
+{% endif %}
 
     ipv6 {
         import filter {

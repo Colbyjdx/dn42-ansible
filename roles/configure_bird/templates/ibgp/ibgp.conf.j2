@@ -3,11 +3,13 @@ protocol bgp ibgp_{{ item.replace('-', '_') }} {
     neighbor {{ hostvars[item]['ownip6'] }} as OWNAS;
     advertise hostname on;
 
+{% if dn42_v6_only is not defined %}
     ipv4 {
         import where source = RTS_BGP && is_valid_network() && !is_self_net();
         export where source = RTS_BGP && is_valid_network() && !is_self_net();
         next hop self;
     };
+{% endif %}
 
     ipv6 {
         import where source = RTS_BGP && is_valid_network_v6() && !is_self_net_v6();
