@@ -1,0 +1,25 @@
+protocol direct {
+    {% if dn42_v6_only is not defined %}ipv4;{% endif %}
+    ipv6;
+    interface "igp_dummy*";
+};
+
+protocol babel int_babel {
+{% if dn42_v6_only is not defined %}
+    ipv4 {
+        import where source != RTS_BGP && is_self_net();
+        export where source != RTS_BGP && is_self_net();
+    };
+{% endif %}
+    ipv6 {
+        import where source != RTS_BGP && is_self_net_v6();
+        export where source != RTS_BGP && is_self_net_v6();
+    };
+
+{% for peer in igp_links %}
+    interface "igp_{{ peer.replace('-', '_') }}" {
+        rxcost 123;
+    };
+{% endfor %}
+
+};
