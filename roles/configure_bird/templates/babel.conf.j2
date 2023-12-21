@@ -18,7 +18,10 @@ protocol babel int_babel {
 
 {% for peer in igp_links %}
     interface "igp_{{ peer.replace('-', '_') }}" {
-        rxcost 123;
+        type tunnel;
+        rxcost 3;
+        rtt min 5 ms;
+        rtt max 300 ms;
     };
 {% endfor %}
 
