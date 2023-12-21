@@ -2,15 +2,30 @@
   uri:
     url: https://api.github.com/repos/xddxdd/bird-lg-go/releases/latest
     method: GET
+  delegate_to: localhost
+  run_once: true
+  become: false
   register: releases
 
 - name: Find matching bird-lgproxy-go-.+-linux-amd64.tar.gz
   set_fact:
     release: "{{ releases.json.assets | selectattr('name', 'match', 'bird-lgproxy-go-.+-linux-amd64.tar.gz') | list | first }}"
+  delegate_to: localhost
+  run_once: true
+  become: false
 
 - name: Download bird-lgproxy-go
   get_url:
     url: "{{ release.browser_download_url }}"
+    dest: /tmp/bird-lgproxy-go.tar.gz
+    mode: "0644"
+  delegate_to: localhost
+  run_once: true
+  become: false
+
+- name: Copy bird-lgproxy-go to remote
+  copy:
+    src: /tmp/bird-lgproxy-go.tar.gz
     dest: /tmp/bird-lgproxy-go.tar.gz
     mode: "0644"
 

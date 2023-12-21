@@ -28,6 +28,13 @@
     owner: bird
     group: bird
 
+# Prevents error on first run for nodes without any IPv4 addresses
+- name: Add node ID to Bird config
+  lineinfile:
+    path: /etc/bird/bird.conf
+    regexp: "^router id"
+    line: "router id {{ node_id }};"
+
 - name: Ensure Bird service is enabled and started
   service:
     name: bird
