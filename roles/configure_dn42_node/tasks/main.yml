@@ -20,6 +20,12 @@
   hostname:
     name: "{{ ansible_host }}"
 
+- name: Update /etc/hosts with new hostname
+  lineinfile:
+    path: /etc/hosts
+    regexp: "^127.0.0.1.*(?<!localhost)$"
+    line: "127.0.0.1 {{ ansible_host }}"
+
 - name: Create CA extras directory
   file:
     path: /usr/share/ca-certificates/extra
