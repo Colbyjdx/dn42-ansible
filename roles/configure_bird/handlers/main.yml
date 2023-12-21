@@ -6,3 +6,4 @@
   systemd:
     name: systemd-networkd
     state: restarted
+    enabled: true

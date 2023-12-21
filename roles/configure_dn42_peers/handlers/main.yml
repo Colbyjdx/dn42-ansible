@@ -2,6 +2,7 @@
   systemd:
     name: systemd-networkd
     state: restarted
+    enabled: true
 
 - name: Configure bird
   command: birdc configure
