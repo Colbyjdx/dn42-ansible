@@ -1,0 +1,8 @@
+configure_dn42_peers_peerlist:
+  - name: KSKB
+    as: "4242421817"
+    remote_endpoint: jp.kskb.eu.org:22558
+    remote_pubkey: LDtwAj4hsCOmZEnAcb2uzOH5FP1q43ploOoG/8tDeC4=
+    remote_link_local: fe80::1817
+    community_latency: 1
+    community_bandwidth: 24

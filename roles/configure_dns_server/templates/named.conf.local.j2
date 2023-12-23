@@ -8,6 +8,11 @@ zone "16/28.120.23.172.in-addr.arpa" {
     file "/etc/bind/zones/16_28.120.23.172.db";
 };
 
+zone "9.d.e.6.1.0.0.6.3.9.d.f.ip6.arpa" {
+    type master;
+    file "/etc/bind/zones/9.d.e.6.1.0.0.6.3.9.d.f.db";
+};
+
 zone "dn42" {
   type forward;
   forwarders { 172.20.0.53; fd42:d42:d42:54::1; };

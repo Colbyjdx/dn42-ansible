@@ -1,0 +1,18 @@
+configure_dn42_peers_peerlist:
+  - name: LARE
+    as: "4242423035"
+    remote_endpoint: uk01.dn42.lare.cc:22558
+    remote_pubkey: RJaU1kRfiOREvKihiDMFpNrEGpN8td3z+UvHxabOlR0=
+    remote_link_local: fe80::3035:138
+    extended_next_hop: "on"
+    community_latency: 2
+    community_bandwidth: 23
+
+  - name: KIOUBIT
+    as: "4242423914"
+    remote_endpoint: uk1.g-load.eu:22558
+    remote_pubkey: sLbzTRr2gfLFb24NPzDOpy8j09Y6zI+a7NkeVMdVSR8=
+    remote_link_local: fe80::ade0
+    extended_next_hop: "on"
+    community_latency: 2
+    community_bandwidth: 23

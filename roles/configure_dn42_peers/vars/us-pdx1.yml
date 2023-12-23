@@ -7,13 +7,13 @@ configure_dn42_peers_peerlist:
     override_link_local: fe80::abcd
     extended_next_hop: "on"
     community_latency: 4
-    community_bandwidth: 23
+    community_bandwidth: 24
 
   - name: KSKB
     as: "4242421817"
-    remote_endpoint: us.kskb.eu.org:22558
-    remote_pubkey: dZzVdXbQPnWPpHk8QfW/p+MfGzAkMBuWpxEIXzQCggY=
+    remote_endpoint: ussea.kskb.eu.org:22558
+    remote_pubkey: WcbXsXIVIIXjEDKFrCnPH8lG9NaFDKdkvCA7Gl6j4UA=
     remote_link_local: fe80::1817
     extended_next_hop: "on"
-    community_latency: 4
-    community_bandwidth: 23
+    community_latency: 2
+    community_bandwidth: 24

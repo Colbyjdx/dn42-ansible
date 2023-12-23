@@ -1,0 +1,9 @@
+configure_dn42_peers_peerlist:
+  - name: JK
+    as: "4242422717"
+    remote_endpoint: nl.vm.whojk.com:23426
+    remote_pubkey: cokP4jFBH0TlBD/m3sWCpc9nADLOhzM2+lcjAb3ynFc=
+    remote_link_local: fe80::2717
+    extended_next_hop: "on"
+    community_latency: 1
+    community_bandwidth: 23
