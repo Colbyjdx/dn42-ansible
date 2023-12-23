@@ -2,7 +2,4 @@
 Name=igp_{{ item.replace('-', '_') }}
 
 [Network]
-{% if dn42_v6_only is not defined %}
-Address={{ link_local }}/24
-{% endif %}
 Address={{ link_local6 }}/64
