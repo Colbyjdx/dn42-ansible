@@ -58,5 +58,5 @@
     mode: "0644"
     owner: bird
     group: bird
-  loop: "{{ ansible_play_hosts | difference([inventory_hostname]) }}"
+  loop: "{{ groups['dn42'] | difference([inventory_hostname]) }}"
   notify: Reconfigure Bird
