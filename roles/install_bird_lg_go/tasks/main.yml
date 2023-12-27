@@ -1,0 +1,50 @@
+- name: Fetch GitHub releases
+  uri:
+    url: https://api.github.com/repos/xddxdd/bird-lg-go/releases/latest
+    method: GET
+  delegate_to: localhost
+  run_once: true
+  become: false
+  register: releases
+
+- name: Find matching bird-lg-go-.+-linux-amd64.tar.gz
+  set_fact:
+    release: "{{ releases.json.assets | selectattr('name', 'match', 'bird-lg-go-.+-linux-amd64.tar.gz') | list | first }}"
+  delegate_to: localhost
+  run_once: true
+  become: false
+
+- name: Download bird-lg-go
+  get_url:
+    url: "{{ release.browser_download_url }}"
+    dest: /tmp/bird-lg-go.tar.gz
+    mode: "0644"
+  delegate_to: localhost
+  run_once: true
+  become: false
+
+- name: Copy bird-lg-go to remote
+  copy:
+    src: /tmp/bird-lg-go.tar.gz
+    dest: /tmp/bird-lg-go.tar.gz
+    mode: "0644"
+
+- name: Extract bird-lg-go
+  unarchive:
+    src: /tmp/bird-lg-go.tar.gz
+    dest: /usr/local/bin
+    remote_src: true
+    creates: /usr/local/bin/bird-lg-go
+
+- name: Install bird-lg.service
+  template:
+    src: bird-lg.service.j2
+    dest: /etc/systemd/system/bird-lg.service
+    mode: "0644"
+  notify:
+    - Reload systemd
+
+- name: Cleanup tarball
+  file:
+    path: /tmp/bird-lg-go.tar.gz
+    state: absent

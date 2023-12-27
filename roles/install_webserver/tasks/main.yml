@@ -1,0 +1,13 @@
+- name: Update apt cache
+  apt:
+    update_cache: true
+
+- name: Install nginx
+  apt:
+    name: nginx
+    state: present
+
+- name: Install certbot
+  apt:
+    name: python3-certbot-nginx
+    state: present

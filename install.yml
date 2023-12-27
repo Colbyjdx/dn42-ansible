@@ -16,3 +16,11 @@
 
   roles:
     - 'install_dns_server'
+
+- name: Install webserver
+  hosts: dn42_webserver
+  become: true
+
+  roles:
+    - 'install_webserver'
+    - 'install_bird_lg_go'

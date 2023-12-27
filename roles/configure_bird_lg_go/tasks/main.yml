@@ -1,0 +1,9 @@
+- name: Configure bird-lg-go
+  template:
+    src: "bird-lg.json.j2"
+    dest: "/usr/local/bin/bird-lg.json"
+    mode: "0644"
+    owner: root
+    group: root
+  notify:
+    - Restart bird-lg-go

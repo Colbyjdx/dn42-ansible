@@ -1,0 +1,5 @@
+- name: Restart bird-lg-go
+  service:
+    name: bird-lg
+    state: restarted
+    enabled: true

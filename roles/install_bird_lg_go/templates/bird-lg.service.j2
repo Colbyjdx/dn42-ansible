@@ -1,0 +1,11 @@
+[Unit]
+Description=bird-lg
+
+[Service]
+User=bird
+Group=bird
+ExecStart=/usr/local/bin/bird-lg-go
+WorkingDirectory=/usr/local/bin
+
+[Install]
+WantedBy=multi-user.target

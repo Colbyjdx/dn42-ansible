@@ -1,0 +1,23 @@
+- name: Start nginx
+  service:
+    name: nginx
+    state: started
+    enabled: true
+
+- name: Configure nginx
+  template:
+    src: "{{ item }}"
+    dest: "/etc/nginx/sites-enabled/{{ item.replace('.j2', '') | basename }}"
+    mode: "0644"
+    owner: root
+    group: root
+  with_fileglob:
+    - "templates/*.j2"
+  notify:
+    - Restart nginx
+
+- name: Run certbot
+  command: certbot --nginx -d {{ item }} --non-interactive --agree-tos --email {{ secrets.email }} --server https://acme.burble.dn42/v1/dn42/acme/directory
+  args:
+    creates: "/etc/letsencrypt/renewal/{{ item }}.conf"
+  with_items: "{{ ['lg.derix.dn42'] }}"

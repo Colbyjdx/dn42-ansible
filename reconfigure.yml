@@ -14,3 +14,11 @@
 
   roles:
     - 'configure_dns_server'
+
+- name: Reconfigure webserver
+  hosts: dn42_webserver
+  become: true
+
+  roles:
+    - 'configure_webserver'
+    - 'configure_bird_lg_go'
