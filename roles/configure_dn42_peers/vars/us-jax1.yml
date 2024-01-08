@@ -1,0 +1,8 @@
+configure_dn42_peers_peerlist:
+  - name: JMLIBER
+    as: "4242422282"
+    remote_endpoint: gw-endpoint.jksandbox.co:51823
+    remote_pubkey: OOKb/g0S4E6accXkMrJ8nmdY+NKraCtIl5pcpYE5Ghg=
+    remote_link_local: fe80::fd03
+    community_latency: 2
+    community_bandwidth: 23

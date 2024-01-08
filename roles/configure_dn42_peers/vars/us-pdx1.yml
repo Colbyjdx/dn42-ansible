@@ -17,3 +17,21 @@ configure_dn42_peers_peerlist:
     extended_next_hop: "on"
     community_latency: 2
     community_bandwidth: 24
+
+  - name: HIGHDEF
+    as: "4242421080"
+    remote_endpoint: sea.peer.highdef.network:22558
+    remote_pubkey: ExN2xDiIoeWYIctUYBROqFwPQoaEWF/yZSsTcSgWVhY=
+    remote_link_local: fe80::114
+    extended_next_hop: "on"
+    community_latency: 3
+    community_bandwidth: 23
+
+  - name: NINEPFS
+    as: "4242421146"
+    remote_endpoint: 47.221.227.180:22558
+    remote_pubkey: /SMD8YbgCtJ0iinMzRmeTfwv9GX4XxK/lCQCAnusu04=
+    remote_link_local: fe80::1146:1
+    extended_next_hop: "on"
+    community_latency: 5
+    community_bandwidth: 23

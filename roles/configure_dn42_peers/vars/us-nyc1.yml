@@ -1,0 +1,18 @@
+configure_dn42_peers_peerlist:
+  - name: HIGHDEF
+    as: "4242421080"
+    remote_endpoint: ymq.peer.highdef.network:22558
+    remote_pubkey: YrlNsVP9bbTqNuNyQ/MVFzulZKNW5vMaDMzHVFNXSSE=
+    remote_link_local: fe80::123
+    extended_next_hop: "on"
+    community_latency: 3
+    community_bandwidth: 23
+
+  - name: NINEPFS
+    as: "4242421146"
+    remote_endpoint: 73.246.171.91:22558
+    remote_pubkey: Sz/jpnf/b+DnsoJLa8hvV8FoU644O4eYEF5F3tuze2A=
+    remote_link_local: fe80::1146:1
+    extended_next_hop: "on"
+    community_latency: 4
+    community_bandwidth: 23

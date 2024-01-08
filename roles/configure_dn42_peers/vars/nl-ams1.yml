@@ -7,3 +7,12 @@ configure_dn42_peers_peerlist:
     extended_next_hop: "on"
     community_latency: 1
     community_bandwidth: 23
+
+  - name: HIGHDEF
+    as: "4242421080"
+    remote_endpoint: ams.peer.highdef.network:22558
+    remote_pubkey: EdWVXZMdujdL/jX5FZDjkPQPVaLoWt4C8FowNRbuaTU=
+    remote_link_local: fe80::118
+    extended_next_hop: "on"
+    community_latency: 1
+    community_bandwidth: 23

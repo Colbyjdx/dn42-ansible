@@ -1,0 +1,8 @@
+configure_dn42_peers_peerlist:
+  - name: SCOOPTA
+    as: "4242421197"
+    remote_endpoint: ninym.uwu.academy:12558
+    remote_pubkey: vKYOjO3D/liyslRdvKHEwfUnAzMR19OM5gku7eKrJDc=
+    remote_link_local: fe80::1197
+    community_latency: 5
+    community_bandwidth: 23
