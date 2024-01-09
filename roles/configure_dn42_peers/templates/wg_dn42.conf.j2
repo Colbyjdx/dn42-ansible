@@ -1,5 +1,5 @@
 [Interface]
-PrivateKey={{ wg_private }}
+PrivateKey={{ secrets[inventory_hostname]['wg_private'] }}
 ListenPort={{ item.as[5:] }}
 
 [Peer]

@@ -19,9 +19,3 @@
     dest: /opt/boringtun
     mode: "0755"
   when: inventory_hostname in groups["dn42_lite"]
-
-- name: Generate WireGuard keys if they don't exist
-  shell: set -o pipefail && wg genkey | tee /etc/wireguard/privatekey | wg pubkey > /etc/wireguard/publickey
-  args:
-    executable: /bin/bash
-    creates: /etc/wireguard/privatekey

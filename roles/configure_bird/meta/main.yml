@@ -1,2 +1,2 @@
 dependencies:
-  - role: get_wireguard_keys
+  - role: get_secrets

@@ -4,7 +4,7 @@ Kind=wireguard
 Description=IGP tunnel with {{ item }}
 
 [WireGuard]
-PrivateKey={{ wg_private }}
+PrivateKey={{ secrets[inventory_hostname]['wg_private'] }}
 ListenPort={{ hostvars[item]['node_id'] }}
 
 [WireGuardPeer]
