@@ -1,0 +1,15 @@
+# Extra tasks we perform for anycast-enabled nodes
+
+- name: Create dummy_anycast.netdev file
+  template:
+    src: dummy_anycast.netdev.j2
+    dest: /etc/systemd/network/dummy_anycast.netdev
+    mode: "0644"
+  notify: Restart systemd-networkd
+
+- name: Create dummy_anycast.network file
+  template:
+    src: dummy_anycast.network.j2
+    dest: /etc/systemd/network/dummy_anycast.network
+    mode: "0644"
+  notify: Restart systemd-networkd

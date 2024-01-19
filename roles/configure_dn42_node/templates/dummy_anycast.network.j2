@@ -1,0 +1,8 @@
+[Match]
+Name=igp_dummy_ac
+
+[Network]
+{% if dn42_v6_only is not defined %}
+Address={{ anycast_ip }}/32
+{% endif %}
+Address={{ anycast_ip6 }}/128

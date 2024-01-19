@@ -77,6 +77,10 @@
     mode: "0644"
   notify: Restart systemd-networkd
 
+- name: Run extra setup for anycast nodes
+  include_tasks: anycast.yml
+  when: inventory_hostname in groups["dn42_anycast"]
+
 - name: Run extra setup for lite nodes
   include_tasks: lite.yml
   when: inventory_hostname in groups["dn42_lite"]
