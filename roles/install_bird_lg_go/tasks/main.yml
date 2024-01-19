@@ -34,7 +34,6 @@
     src: /tmp/bird-lg-go.tar.gz
     dest: /usr/local/bin
     remote_src: true
-    creates: /usr/local/bin/bird-lg-go
 
 - name: Install bird-lg.service
   template:

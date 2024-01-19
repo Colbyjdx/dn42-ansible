@@ -34,7 +34,6 @@
     src: /tmp/bird-lgproxy-go.tar.gz
     dest: /usr/local/bin
     remote_src: true
-    creates: /usr/local/bin/bird-lgproxy-go
 
 - name: Install bird-lgproxy.service
   template:
