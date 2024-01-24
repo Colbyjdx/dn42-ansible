@@ -2,7 +2,7 @@
 
 $TTL 60
 
-@       IN      SOA     ns1.derix.dn42.      dn42.derix.dev. (
+@       IN      SOA     ns.derix.dn42.      dn42.derix.dev. (
                         2024011901      ; serial number YYMMDDNN
                         60              ; Refresh
                         60              ; Retry
@@ -10,13 +10,10 @@ $TTL 60
                         60              ; Min TTL
                         )
 
-                NS      ns1.derix.dn42.
-                NS      ns2.derix.dn42.
+                NS      ns.derix.dn42.
 
-ns1             A       172.23.120.17
-ns1             AAAA    fd93:6001:6ed9:0::1
-ns2             A       172.23.120.18
-ns2             AAAA    fd93:6001:6ed9:1::1
+ns              A       172.23.120.31
+ns              AAAA    fd93:6001:6ed9:ffff::1
 
 anycast         A       172.23.120.31
 anycast         AAAA    fd93:6001:6ed9:ffff::1
