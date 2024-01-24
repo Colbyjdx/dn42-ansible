@@ -16,3 +16,12 @@ configure_dn42_peers_peerlist:
     extended_next_hop: "on"
     community_latency: 1
     community_bandwidth: 23
+
+  - name: KIOUBIT
+    as: "4242423914"
+    remote_endpoint: de2.g-load.eu:22558
+    remote_pubkey: B1xSG/XTJRLd+GrWDsB06BqnIq8Xud93YVh/LYYYtUY=
+    remote_link_local: fe80::ade0
+    extended_next_hop: "on"
+    community_latency: 3
+    community_bandwidth: 23

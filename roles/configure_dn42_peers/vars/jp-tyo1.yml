@@ -6,3 +6,11 @@ configure_dn42_peers_peerlist:
     remote_link_local: fe80::1817
     community_latency: 1
     community_bandwidth: 24
+
+  - name: IEDON
+    as: "4242422189"
+    remote_endpoint: jp-tyo.dn42.kuu.moe:41173
+    remote_pubkey: u2ImAJn9ewce9YHN6HaqrR3Sr4Xsy5UaaJOLJ7gkSzs=
+    remote_link_local: fe80::2189:ee
+    community_latency: 1
+    community_bandwidth: 24

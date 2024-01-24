@@ -1,0 +1,8 @@
+configure_dn42_peers_peerlist:
+  - name: IEDON
+    as: "4242422189"
+    remote_endpoint: de-fra.dn42.kuu.moe:50785
+    remote_pubkey: FHp0OR4UpAS8/Ra0FUNffTk18soUYCa6NcvZdOgxY0k=
+    remote_link_local: fe80::2189:e9
+    community_latency: 2
+    community_bandwidth: 24

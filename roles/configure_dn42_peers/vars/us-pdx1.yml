@@ -20,9 +20,9 @@ configure_dn42_peers_peerlist:
 
   - name: HIGHDEF
     as: "4242421080"
-    remote_endpoint: sea.peer.highdef.network:22558
-    remote_pubkey: ExN2xDiIoeWYIctUYBROqFwPQoaEWF/yZSsTcSgWVhY=
-    remote_link_local: fe80::114
+    remote_endpoint: yvr.peer.highdef.network:22558
+    remote_pubkey: O4qWRgbJVdOM8ktyUQyT1s11WkR16JTgtnn42m9A2R8=
+    remote_link_local: fe80::1080:35
     extended_next_hop: "on"
     community_latency: 3
     community_bandwidth: 23

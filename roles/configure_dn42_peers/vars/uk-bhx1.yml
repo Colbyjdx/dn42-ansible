@@ -16,3 +16,12 @@ configure_dn42_peers_peerlist:
     extended_next_hop: "on"
     community_latency: 2
     community_bandwidth: 23
+
+  - name: ALETHKIT
+    as: "4242422831"
+    remote_endpoint: "[2a0f:85c2:8::3]:22558"
+    remote_pubkey: QkE8A17FSDMxP44VIQ716DG8tWd6WvC7hk+QXD26Oz4=
+    remote_link_local: fe80::2831
+    extended_next_hop: "on"
+    community_latency: 2
+    community_bandwidth: 23
