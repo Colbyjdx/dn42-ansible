@@ -1,8 +1,8 @@
 search dn42.derix.au
 
-{% for dns_server in groups["dn42_dns_server"] | shuffle(seed=inventory_hostname) %}
-nameserver {{ hostvars[dns_server]["ownip6"] }}
-{% endfor %}
-
+nameserver {{ anycast_ip6 }}
+{% if public_ipv6 == "open" %}
+nameserver 2001:4860:4860::8888
+{% else %}
 nameserver 8.8.8.8
-nameserver 2001:4860:4860::8844
+{% endif %}

@@ -35,6 +35,19 @@ options {
     //========================================================================
     dnssec-validation auto;
 
-    listen-on-v6 { any; };
+    listen-on {
+        {% if inventory_hostname in groups["dn42_anycast"] %}
+        {{ anycast_ip }};
+        {% else %}
+        {{ ownip }};
+        {% endif %}
+    };
+    listen-on-v6 {
+        {% if inventory_hostname in groups["dn42_anycast"] %}
+        {{ anycast_ip6 }};
+        {% else %}
+        {{ ownip6 }};
+        {% endif %}
+    };
     allow-recursion { "trusted"; };
 };
