@@ -6,6 +6,8 @@ acl "trusted" {
 {% endif %}
     localhost;
     localnets;
+    172.20.0.0/14;
+    fd00::/8;
 };
 
 
@@ -13,7 +15,14 @@ options {
     directory "/var/cache/bind";
 
     dns64 {{ nat64_pool }} {
-        clients { !{{ ownasnet6 | replace('48', '52') }}; !{{ anycast_ip6 | replace('::1', '::/64') }}; any; }; // exclude own dual-stack nodes & anycast nodes
+        clients {
+            !{{ ownasnet6 | replace('48', '52') }};
+            {% if dn42_v6_only is not defined %}
+            !localnets;
+            !localhost;
+            {% endif %}
+            any;
+        }; // exclude own dual-stack nodes
         break-dnssec yes;
         mapped { 172.20/14; }; // only include dn42 space
     };
