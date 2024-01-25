@@ -24,3 +24,10 @@
   roles:
     - 'install_webserver'
     - 'install_bird_lg_go'
+
+- name: Install packages & software for nat64 nodes
+  hosts: dn42_nat64
+  become: true
+
+  roles:
+    - 'install_jool'

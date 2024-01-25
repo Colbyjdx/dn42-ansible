@@ -12,6 +12,12 @@ acl "trusted" {
 options {
     directory "/var/cache/bind";
 
+    dns64 {{ nat64_pool }} {
+        clients { !{{ ownasnet6 | replace('48', '52') }}; !{{ anycast_ip6 | replace('::1', '::/64') }}; any; }; // exclude own dual-stack nodes & anycast nodes
+        break-dnssec yes;
+        mapped { 172.20/14; }; // only include dn42 space
+    };
+
     validate-except {
         "dn42";
         "20.172.in-addr.arpa";

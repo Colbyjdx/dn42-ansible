@@ -81,6 +81,10 @@
   include_tasks: anycast.yml
   when: inventory_hostname in groups["dn42_anycast"]
 
+- name: Run extra setup for nat64 nodes
+  include_tasks: nat64.yml
+  when: inventory_hostname in groups["dn42_nat64"]
+
 - name: Run extra setup for lite nodes
   include_tasks: lite.yml
   when: inventory_hostname in groups["dn42_lite"]

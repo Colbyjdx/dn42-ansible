@@ -1,0 +1,11 @@
+- name: Configure jool
+  template:
+    src: "{{ item }}"
+    dest: "/etc/jool/{{ item.replace('.j2', '') | basename }}"
+    mode: "0644"
+    owner: root
+    group: root
+  with_fileglob:
+    - "templates/*.j2"
+  notify:
+    - Reload jool

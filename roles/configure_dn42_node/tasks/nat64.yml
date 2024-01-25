@@ -1,0 +1,15 @@
+# Extra tasks we perform for nat64-enabled nodes
+
+- name: Create dummy_nat64.netdev file
+  template:
+    src: dummy_nat64.netdev.j2
+    dest: /etc/systemd/network/dummy_nat64.netdev
+    mode: "0644"
+  notify: Restart systemd-networkd
+
+- name: Create dummy_nat64.network file
+  template:
+    src: dummy_nat64.network.j2
+    dest: /etc/systemd/network/dummy_nat64.network
+    mode: "0644"
+  notify: Restart systemd-networkd

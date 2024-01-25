@@ -6,3 +6,13 @@
 :FORWARD ACCEPT
 :OUTPUT ACCEPT
 COMMIT
+
+{% if inventory_hostname in groups["dn42_nat64"] %}
+*mangle
+:PREROUTING ACCEPT [0:0]
+-A PREROUTING -d {{ nat64_pool }} -j JOOL --instance dn42-nat64
+:INPUT ACCEPT [0:0]
+:OUTPUT ACCEPT [0:0]
+:POSTROUTING ACCEPT [0:0]
+COMMIT
+{% endif %}

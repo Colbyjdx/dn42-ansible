@@ -1,0 +1,15 @@
+- name: Install jool
+  apt:
+    name:
+      - jool-tools
+      - jool-dkms
+    state: present
+    update_cache: true
+
+- name: Create jool directory
+  file:
+    path: /etc/jool
+    state: directory
+    owner: root
+    group: root
+    mode: "0755"

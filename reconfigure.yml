@@ -22,3 +22,10 @@
   roles:
     - 'configure_webserver'
     - 'configure_bird_lg_go'
+
+- name: Reconfigure packages & software for nat64 nodes
+  hosts: dn42_nat64
+  become: true
+
+  roles:
+    - 'configure_jool'

@@ -1,0 +1,5 @@
+- name: Reload jool
+  service:
+    name: jool
+    state: restarted
+    enabled: true

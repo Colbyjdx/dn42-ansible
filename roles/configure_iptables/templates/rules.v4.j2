@@ -21,3 +21,13 @@ COMMIT
 -A POSTROUTING -s {{ ownasnet }} -o {{ nat_iface }} -j MASQUERADE
 COMMIT
 {% endif %}
+
+{% if inventory_hostname in groups["dn42_nat64"] %}
+*mangle
+:PREROUTING ACCEPT [0:0]
+-A PREROUTING -d 172.20.0.0/14 -j JOOL --instance dn42-nat64
+:INPUT ACCEPT [0:0]
+:OUTPUT ACCEPT [0:0]
+:POSTROUTING ACCEPT [0:0]
+COMMIT
+{% endif %}
