@@ -3,6 +3,8 @@ PrivateKey={{ secrets[inventory_hostname]['wg_private'] }}
 ListenPort={{ item.as[5:] }}
 
 [Peer]
+{% if item.get('remote_endpoint') %}
 Endpoint={{ item.remote_endpoint }}
+{% endif %}
 PublicKey={{ item.remote_pubkey }}
 AllowedIPs=172.20.0.0/14,fd00::/8,fe80::/64,ff00::/8
