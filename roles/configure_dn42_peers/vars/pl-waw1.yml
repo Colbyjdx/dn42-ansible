@@ -1,0 +1,9 @@
+configure_dn42_peers_peerlist:
+  - name: INFERIOR
+    as: "4242420129"
+    remote_endpoint: pl-waw.inferior.network:22558
+    remote_pubkey: n8s6WgyHABuLbA9xfeHK8YTZpszSVPtScdFdPJlfUhY=
+    remote_link_local: fe80::129:3cd4
+    extended_next_hop: "on"
+    community_latency: 1
+    community_bandwidth: 23
