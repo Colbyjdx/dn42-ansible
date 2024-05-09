@@ -6,3 +6,12 @@ configure_dn42_peers_peerlist:
     remote_link_local: fe80::1197
     community_latency: 5
     community_bandwidth: 23
+
+  - name: ROUTEDBITS
+    as: "4242420207"
+    remote_endpoint: router.chi1.routedbits.com:52558
+    remote_pubkey: 89xUzROs3l/KNPLxDTJz4l5aEH1cmLb22bNgChhRiQo=
+    remote_link_local: fe80::207
+    extended_next_hop: "on"
+    community_latency: 1
+    community_bandwidth: 23
