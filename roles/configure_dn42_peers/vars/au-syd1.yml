@@ -16,3 +16,12 @@ configure_dn42_peers_peerlist:
     extended_next_hop: "on"
     community_latency: 1
     community_bandwidth: 23
+
+  - name: ROUTEDBITS
+    as: "4242420207"
+    remote_endpoint: router.syd1.routedbits.com:52558
+    remote_pubkey: wgCrE2lSvrfctVSngdHo6iAT/RRK7gNldJcFIFKi/Go=
+    remote_link_local: fe80::207
+    extended_next_hop: "on"
+    community_latency: 1
+    community_bandwidth: 23
