@@ -4,6 +4,5 @@ configure_dn42_peers_peerlist:
     remote_endpoint: router.tor1.routedbits.com:52558
     remote_pubkey: +5TlmsmGyXgIAv4Ej8yTum0sHQ+PWNkhcznnC+lv12M=
     remote_link_local: fe80::207
-    extended_next_hop: "on"
     community_latency: 3
     community_bandwidth: 23
